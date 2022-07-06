@@ -26,3 +26,5 @@ cirrus = {editable = true, git = "https://gitlab.tools.pttep.com/pttep-data-plat
 
 [requires]
 python_version = "3"
+
+test
