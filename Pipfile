@@ -26,5 +26,10 @@ cirrus = {editable = true, git = "https://gitlab.tools.pttep.com/pttep-data-plat
 
 [requires]
 python_version = "3"
+<<<<<<< HEAD
 สวัสดีครับ 
 
+=======
+
+test
+>>>>>>> 0f6e032a4117843e8b10c9a2b9ecfa0696942cac
