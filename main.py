@@ -14,8 +14,8 @@ def setup_project():
     return args.option, args.method, get_method_arguments(args)
 
 def cirrus():
-    
     option, method, method_args = setup_project()
+    
     if option == Option.FUNCTION:
         call_method(SOURCE, Option.FUNCTION, method, method_args)
     elif option == Option.MANAGER:
