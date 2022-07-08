@@ -5,9 +5,9 @@ from source.function.main_function.download_file_from_sharepoint import *
 
 class DownloadFileFromSharepoint(MyCumulus):
     def __init__(self, method_args):
-        pass
-        # self.x = method_args.get("x")
-        # self.y = method_args.get("y")
+        # pass
+        self.x = method_args.get("x")
+        self.y = method_args.get("y")
 
     @staticmethod
     def get_method_description():
@@ -37,7 +37,7 @@ class DownloadFileFromSharepoint(MyCumulus):
         ]
     
     def run(self):
-        app = download_file_from_sharepoint()
+        app = download_file_from_sharepoint(self.x, self.y)
         print(app)
         # app = async_func()
         # app.run_start()

@@ -3,9 +3,7 @@ import os
 import asyncio
 
 def download_file_from_sharepoint(x, y):
-    print(x)
-    print(y)
-    return x + y
+    return int(x) + int(y)
 
 class async_func():
     def __init__(self):
