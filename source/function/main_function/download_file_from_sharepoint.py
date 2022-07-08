@@ -5,7 +5,7 @@ import asyncio
 def download_file_from_sharepoint(x, y):
     print(x)
     print(y)
-    return x, y
+    return x + y
 
 class async_func():
     def __init__(self):
@@ -27,5 +27,4 @@ class async_func():
         task1  = asyncio.create_task(self.download_file_from_sharepoint())
         await task1
         print(task1.result())
-    
     

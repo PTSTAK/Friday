@@ -37,5 +37,7 @@ class DownloadFileFromSharepoint(MyCumulus):
         ]
     
     def run(self):
-        app = async_func()
-        app.run_start()
+        app = download_file_from_sharepoint()
+        print(app)
+        # app = async_func()
+        # app.run_start()
