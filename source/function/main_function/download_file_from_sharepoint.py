@@ -15,7 +15,6 @@ def insert_to_bq(call_func):
                                 write_mode="append"
                             )
         return inserted_row
-    
     return insert_row
 
 def convert_file_to_csv(call_func):
@@ -25,7 +24,6 @@ def convert_file_to_csv(call_func):
         extract_excel_to_csv(files_path, file_csv)      
         csv_file = os.path.abspath(os.path.join(os.getcwd(), file_csv))
         return csv_file 
-    
     return convert
 
 @insert_to_bq
