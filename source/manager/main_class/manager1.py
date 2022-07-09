@@ -4,8 +4,7 @@ from source.manager.main_function.manager1 import manager1
 
 class Manager1(MyAltoCumulus):
     def __init__(self, method_args):
-        self.x = method_args.get("x")
-        self.y = method_args.get("y")
+        pass
 
     @staticmethod
     def get_method_description():
@@ -35,4 +34,5 @@ class Manager1(MyAltoCumulus):
         ]
     
     def run(self):
-        manager1(self.x, self.y)
+        run = manager1()
+        print(run)

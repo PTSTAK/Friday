@@ -1,6 +1,6 @@
 from source.function.main_class.my_cumulus import MyCumulus
 from cirrus.constants import ArgumentParams
-from source.function.main_function.download_file_from_sharepoint import *
+from source.function.main_function.download_file_from_sharepoint import download_file_from_sharepoint
 
 
 class DownloadFileFromSharepoint(MyCumulus):
@@ -37,7 +37,6 @@ class DownloadFileFromSharepoint(MyCumulus):
         ]
     
     def run(self):
-        app = download_file_from_sharepoint(self.x, self.y)
-        print(app)
+        pass
         # app = async_func()
         # app.run_start()
