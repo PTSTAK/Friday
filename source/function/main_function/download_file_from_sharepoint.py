@@ -2,16 +2,18 @@ import glob, os, asyncio
 from source.function.const.download_file_from_sharepoint import *
 from cirrus.functions import extract_excel_to_csv, local_csv_to_bq
 
-
 def insert_to_bq(call_func):
     def insert_row():       
         csv_file = call_func()
-        inserted_row = local_csv_to_bq(file_path=csv_file,
-                                    project_id=project_id, 
-                                    dataset_id=dataset_id, 
-                                    table_id=table_id, 
-                                    service_acc=SERVICE_ACCOUNT,
-                                    skip_rows=1)
+        inserted_row = local_csv_to_bq(
+                                file_path=csv_file,
+                                project_id=project_id, 
+                                dataset_id=dataset_id, 
+                                table_id=table_id, 
+                                service_acc=SERVICE_ACCOUNT,
+                                skip_rows=1,
+                                write_mode="append"
+                            )
         return inserted_row
     
     return insert_row
