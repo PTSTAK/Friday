@@ -1,14 +1,10 @@
-import asyncio
-import glob
-import os
+import glob, os, asyncio
 from cirrus.functions import extract_excel_to_csv
-
 
 def convert_file_to_csv(call_func):
     def convert():
         files_path = call_func()    
         path_csv, file_csv = os.path.split(str(files_path).strip('.xlsx') + '.csv')
-        
         extract_excel_to_csv(files_path, file_csv)      
         csv_file = os.path.abspath(os.path.join(os.getcwd(), file_csv))
         return csv_file
