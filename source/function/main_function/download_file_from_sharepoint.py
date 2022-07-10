@@ -22,10 +22,6 @@ def insert_to_bq(call_func):
 def convert_file_to_csv(call_func):
     def convert():
         files_path = call_func()
-        # path = os.path.abspath(os.path.join(os.getcwd(), 'excel_path'))
-        # file_type = r'\merge_data_sharepoint_*xlsx'
-        # get_last_file = glob.glob(path + file_type)
-        # files = max(get_last_file, key=os.path.getctime)
         path_csv, file_csv = os.path.split(str(files_path).strip('.xlsx') + '.csv')
         extract_excel_to_csv(files_path, file_csv)      
         csv_file = os.path.abspath(os.path.join(os.getcwd(), file_csv))      
@@ -65,6 +61,7 @@ def download_file_from_sharepoint():
     except Exception as err: 
         print(f"ชื่อ file ใน path {path} ไม่ถูกต้อง!! โปรดตวจสอบอีกครั้ง", file=sys.stderr)
         sys.exit(0)
+        
     return 'files'
 
 
@@ -87,11 +84,6 @@ def check_template(files):
     err_file = df_file_original.to_excel(err_path ,index=False,header=True)
     
     return err_file
-
-
-
-
-
 
 
 
