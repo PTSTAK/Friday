@@ -16,6 +16,7 @@ def insert_to_bq(call_func):
                                 write_mode="append"
                             )
         return inserted_row
+    
     return insert_row
 
 def convert_file_to_csv(call_func):
@@ -29,6 +30,7 @@ def convert_file_to_csv(call_func):
         extract_excel_to_csv(files_path, file_csv)      
         csv_file = os.path.abspath(os.path.join(os.getcwd(), file_csv))      
         return  csv_file
+    
     return convert
 
 def format_data(call_func):
@@ -58,11 +60,38 @@ def download_file_from_sharepoint():
     get_last_file = glob.glob(path + file_type)
     
     try:
-        files = max(get_last_file, key=os.path.getctime)
+        files = max(get_last_file, key=os.path.getctime)      
+        # chk = check_template(files)
     except Exception as err: 
         print(f"ชื่อ file ใน path {path} ไม่ถูกต้อง!! โปรดตวจสอบอีกครั้ง", file=sys.stderr)
         sys.exit(0)
-    return files
+    return 'files'
+
+
+def check_template(files):
+    
+    path = os.path.abspath(os.path.join(os.getcwd(), 'excel_path'))
+    
+    file_original  = os.path.abspath(os.path.join(os.getcwd(), 'template_sharepoint.xlsx'))
+    file_new  = files
+    
+    df_file_original =  pd.read_excel(open(file_original, 'rb')).fillna("")
+    df_file_new = pd.read_excel(open(file_new, 'rb')).fillna("")
+    
+    # value
+    comparison_values = df_file_original.values == df_file_new.values
+    rows,cols=np.where(comparison_values==False)
+    for item in zip(rows,cols):
+        df_file_original.iloc[item[0], item[1]] = '{} --> {}'.format(df_file_original.iloc[item[0], item[1]],df_file_new.iloc[item[0], item[1]])  
+    err_path = os.path.abspath(os.path.join(os.getcwd(), 'err_template_sharepoint.xlsx'))
+    err_file = df_file_original.to_excel(err_path ,index=False,header=True)
+    
+    return err_file
+
+
+
+
+
 
 
 
