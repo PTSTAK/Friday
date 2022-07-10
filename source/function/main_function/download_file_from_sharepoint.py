@@ -1,6 +1,7 @@
-import glob, os, asyncio
+import glob, os, sys, asyncio, pandas as pd, numpy as np
 from source.function.const.download_file_from_sharepoint import *
 from cirrus.functions import extract_excel_to_csv, local_csv_to_bq
+
 
 def insert_to_bq(call_func):
     def insert_row():       
@@ -19,20 +20,48 @@ def insert_to_bq(call_func):
 
 def convert_file_to_csv(call_func):
     def convert():
-        files_path = call_func()    
+        files_path = call_func()
+        # path = os.path.abspath(os.path.join(os.getcwd(), 'excel_path'))
+        # file_type = r'\merge_data_sharepoint_*xlsx'
+        # get_last_file = glob.glob(path + file_type)
+        # files = max(get_last_file, key=os.path.getctime)
         path_csv, file_csv = os.path.split(str(files_path).strip('.xlsx') + '.csv')
         extract_excel_to_csv(files_path, file_csv)      
-        csv_file = os.path.abspath(os.path.join(os.getcwd(), file_csv))
-        return csv_file 
+        csv_file = os.path.abspath(os.path.join(os.getcwd(), file_csv))      
+        return  csv_file
     return convert
+
+def format_data(call_func):
+    def merge_data():
+        excel_file = call_func()
+        df1 = pd.read_excel(open(excel_file, 'rb'), nrows=1, usecols="A:B") # get site and business date
+        df1 = pd.DataFrame(np.repeat(df1.values, 10, axis=0), columns=df1.columns) # repeat data to row
+        df2 = pd.read_excel(open(excel_file, 'rb'), skiprows=4,  usecols="A:J") # get data     
+        df_merge = pd.concat([df1, df2], axis=1)
+        
+        # update excel 
+        path,  file = os.path.split(str(excel_file))    
+        new_name = f'\merge_data_{file}'
+        new_excel = os.path.abspath(path + new_name)
+        with pd.ExcelWriter(new_excel) as writer:  
+            df_merge.to_excel(writer, index=False)
+        return new_excel
+    
+    return merge_data
 
 @insert_to_bq
 @convert_file_to_csv
+@format_data
 def download_file_from_sharepoint():
     path = os.path.abspath(os.path.join(os.getcwd(), 'excel_path'))
-    file_type = r'\*xlsx'
+    file_type = r'\sharepoint_*xlsx'
     get_last_file = glob.glob(path + file_type)
-    files = max(get_last_file, key=os.path.getctime)
+    
+    try:
+        files = max(get_last_file, key=os.path.getctime)
+    except Exception as err: 
+        print(f"ชื่อ file ใน path {path} ไม่ถูกต้อง!! โปรดตวจสอบอีกครั้ง", file=sys.stderr)
+        sys.exit(0)
     return files
 
 

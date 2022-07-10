@@ -35,4 +35,3 @@ class Manager1(MyAltoCumulus):
     
     def run(self):
         run = manager1()
-        print(run)
