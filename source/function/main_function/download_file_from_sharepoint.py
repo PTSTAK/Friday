@@ -1,4 +1,5 @@
 import glob, os, sys, asyncio, pandas as pd, numpy as np
+from pickle import TRUE
 from source.function.const.download_file_from_sharepoint import *
 from cirrus.functions import extract_excel_to_csv, local_csv_to_bq
 
@@ -65,25 +66,30 @@ def download_file_from_sharepoint():
     return 'files'
 
 
-def check_template(files):
-    
-    path = os.path.abspath(os.path.join(os.getcwd(), 'excel_path'))
-    
+def check_template(files): 
+    path = os.path.abspath(os.path.join(os.getcwd(), 'excel_path')) 
     file_original  = os.path.abspath(os.path.join(os.getcwd(), 'template_sharepoint.xlsx'))
     file_new  = files
     
     df_file_original =  pd.read_excel(open(file_original, 'rb')).fillna("")
     df_file_new = pd.read_excel(open(file_new, 'rb')).fillna("")
     
-    # value
-    comparison_values = df_file_original.values == df_file_new.values
-    rows,cols=np.where(comparison_values==False)
-    for item in zip(rows,cols):
-        df_file_original.iloc[item[0], item[1]] = '{} --> {}'.format(df_file_original.iloc[item[0], item[1]],df_file_new.iloc[item[0], item[1]])  
-    err_path = os.path.abspath(os.path.join(os.getcwd(), 'err_template_sharepoint.xlsx'))
-    err_file = df_file_original.to_excel(err_path ,index=False,header=True)
-    
-    return err_file
+    try:
+        if (df_file_new['col_X'][0] == df_file_original['col_X'][0]) or (df_file_new['col_Y'][0] == df_file_original['col_Y'][0]):
+            print("pk")
+        else:
+            comparison_values = df_file_original.values == df_file_new.values
+            rows,cols=np.where(comparison_values==False)
+            for item in zip(rows,cols):
+                df_file_original.iloc[item[0], item[1]] = '{} --> {}'.format(df_file_original.iloc[item[0], item[1]],df_file_new.iloc[item[0], item[1]])  
+            err_path = os.path.abspath(os.path.join(os.getcwd(), 'err_template_sharepoint.xlsx'))
+            # update excel 
+            with pd.ExcelWriter(err_path) as writer:  
+                df_file_original.to_excel(writer ,index=False, header=True)            
+    except Exception as err:
+            print("OK")
+        
+    return path
 
 
 
