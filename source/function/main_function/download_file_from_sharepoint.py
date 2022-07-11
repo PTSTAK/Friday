@@ -83,13 +83,16 @@ def check_template(files):
             for item in zip(rows,cols):
                 df_file_original.iloc[item[0], item[1]] = '{} --> {}'.format(df_file_original.iloc[item[0], item[1]],df_file_new.iloc[item[0], item[1]])  
             err_path = os.path.abspath(os.path.join(os.getcwd(), 'err_template_sharepoint.xlsx'))
+            
             # update excel 
             with pd.ExcelWriter(err_path) as writer:  
-                df_file_original.to_excel(writer ,index=False, header=True)            
+                df_file_original.to_excel(writer ,index=False, header=True) 
+                
+            raise Exception("functino not mapp")         
     except Exception as err:
-            print("OK")
+            print(err)
         
-    return path
+    return err_path
 
 
 
