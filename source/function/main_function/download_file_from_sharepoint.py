@@ -63,7 +63,7 @@ def download_file_from_sharepoint():
         print(f"ชื่อ file ใน path {path} ไม่ถูกต้อง!! โปรดตวจสอบอีกครั้ง", file=sys.stderr)
         sys.exit(0)
         
-    return 'files'
+    return files
 
 
 def check_template(files): 
@@ -87,8 +87,7 @@ def check_template(files):
             # update excel 
             with pd.ExcelWriter(err_path) as writer:  
                 df_file_original.to_excel(writer ,index=False, header=True) 
-                
-            raise Exception("functino not mapp")         
+            raise Exception("functino not mapp")    
     except Exception as err:
             print(err)
         
