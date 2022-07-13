@@ -1,23 +1,22 @@
-import os, sys, glob, pandas as pd , json, argparse
-from tkinter import S
+import os, sys, glob, pandas as pd
 from source.function.const.get_file_from_sharepoint import *
-
-from cirrus.common.connector.sharepoint import *
-from cirrus.helpers import *
+from cirrus.common.helper.sharepoint_helper import download_file_from_sharepoint
 
 
 def get_file_from_sharepoint(m, y):
+    
 
     path_file = os.path.abspath(os.path.join(os.getcwd(), 'excel_path'))
     file_name = '\Digital_PMO_Test_Data.xlsx'
-    
+
     try:
-        get_file = download_file_from_sharepoint(
-            secret_path=SERCRET,
-            rel_path=rel_path,
-            file_name=file_name,
-            output_dir= path_file,
-            server_url=server_url)
+        download_file_from_sharepoint(
+                secret_path=SERCRET,
+                rel_path=rel_path,
+                file_name=file_name,
+                output_dir= path_file,
+                server_url=server_url
+                )
     except Exception as err:
         print(err)
     
