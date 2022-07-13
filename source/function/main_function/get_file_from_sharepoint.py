@@ -2,13 +2,8 @@ import os, sys, glob, pandas as pd , json, argparse
 from tkinter import S
 from source.function.const.get_file_from_sharepoint import *
 
+from cirrus.common.connector.sharepoint import *
 from cirrus.helpers import *
-
-
-# path =  os.path.abspath(os.path.join(os.getcwd(), 'credentials\secret.json'))   
-# data = json.load(open(path))
-
-
 
 
 def get_file_from_sharepoint(m, y):
