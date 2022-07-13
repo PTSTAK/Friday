@@ -12,16 +12,19 @@ from cirrus.helpers import *
 
 
 def get_file_from_sharepoint(m, y):
-    
 
-    file_name = "output.xlsx"
-        
-    a = download_file_from_sharepoint(
-            SERCRET,
-            rel_path,
-            file_name,
+    path_file = os.path.abspath(os.path.join(os.getcwd(), 'excel_path'))
+    file_name = '\Digital_PMO_Test_Data.xlsx'
+    
+    try:
+        get_file = download_file_from_sharepoint(
+            secret_path=SERCRET,
+            rel_path=rel_path,
+            file_name=file_name,
+            output_dir= path_file,
             server_url=server_url)
-    print(a)
+    except Exception as err:
+        print(err)
     
     # if (m is None) and (y is None) :
     #     path = os.path.abspath(os.path.join(os.getcwd(), 'excel_path'))
@@ -34,7 +37,6 @@ def get_file_from_sharepoint(m, y):
     #         print(f"ชื่อ file ใน path {path} ไม่ถูกต้อง!! โปรดตวจสอบอีกครั้ง", file=sys.stderr)
     #         sys.exit(1)
             
-    return 'files'
 
 
 

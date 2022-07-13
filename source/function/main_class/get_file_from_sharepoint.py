@@ -36,5 +36,4 @@ class GetFileFromSharepoint(MyCumulus):
         ]
     
     def run(self):
-        app = get_file_from_sharepoint(self.months, self.years)
-        print(app)
+        get_file_from_sharepoint(self.months, self.years)
