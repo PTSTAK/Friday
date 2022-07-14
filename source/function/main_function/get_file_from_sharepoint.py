@@ -9,17 +9,11 @@ from office365.sharepoint.files.file import File
 
 def test_conn_sharepoint():
     
-    # app_principal = {
-    #     "client_id": "zThanakitJ@pttep.com",
-    #     "client_secret": "!ZP8NQ85uaZV4JT",
-    # }
     client_id =  "zThanakitJ@pttep.com"
-    client_secret = "!ZP8NQ85uaZV4JT"
-    
+    client_secret = "!ZP8NQ85uaZV4JT"  
     url_shrpt = "https://pttep.sharepoint.com/teams/SoftwareDevelopmentwithExternalParty"
     
     ctx_auth = AuthenticationContext(url_shrpt)
-    
     try:
         if ctx_auth.acquire_token_for_app(client_id=client_id, client_secret=client_secret):
             ctx = ClientContext(url_shrpt, ctx_auth)
