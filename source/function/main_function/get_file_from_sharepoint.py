@@ -6,24 +6,42 @@ from office365.runtime.auth.authentication_context import AuthenticationContext
 from office365.sharepoint.client_context import ClientContext
 from office365.sharepoint.files.file import File 
 
-
-def test_conn_sharepoint():
+# def test_auth_sharepoint():
+#     app_settings = {
+#         'url': 'https://mfeconcloud.sharepoint.com/sites/TrainingVideo/',
+#         'client_id': 'aaaa-bbb-473a-a1b2-zzzzzfadfd',
+#         'client_secret': 'Tteadsfdafdfasdff444gadfd=',
+#     }
     
-    client_id =  "zThanakitJ@pttep.com"
-    client_secret = "!ZP8NQ85uaZV4JT"  
+#     context_auth = AuthenticationContext(url=app_settings['url'])
+#     context_auth.acquire_token_for_app(client_id=app_settings['client_id'], client_secret=app_settings['client_secret'])
+#     try:
+#         if  context_auth.acquire_token_for_app(client_id=app_settings['client_id'], client_secret=app_settings['client_secret']):
+#             ctx = ClientContext(app_settings['url'], context_auth)
+#             web = ctx.web
+#             ctx.load(web)
+#             ctx.execute_query()
+#             print('Authenticated into sharepoint app for: ',web.properties['Title'])
+#         else:    
+#             print(context_auth.get_last_error())
+#     except Exception as err:
+#         print(err)
+    
+def test_conn_sharepoint(): 
     url_shrpt = "https://pttep.sharepoint.com/teams/SoftwareDevelopmentwithExternalParty"
-    
-    ctx_auth = AuthenticationContext(url_shrpt)
+    username_shrpt = "zThanakitJ@pttep.com"
+    password_shrpt = "!ZP8NQ85uaZV4JT"
+
     try:
-        if ctx_auth.acquire_token_for_app(client_id=client_id, client_secret=client_secret):
+        ctx_auth = AuthenticationContext(url_shrpt)
+        if ctx_auth.acquire_token_for_user(username_shrpt, password_shrpt):
             ctx = ClientContext(url_shrpt, ctx_auth)
             web = ctx.web
             ctx.load(web)
             ctx.execute_query()
-            print('Authenticated into sharepoint app for: ',web.properties['Title'])
+            print('Authenticated into sharepoint as: ',web.properties['Title'])
         else:
             print(ctx_auth.get_last_error())
-            sys.exit()
     except Exception as err:
         print(err)
 
