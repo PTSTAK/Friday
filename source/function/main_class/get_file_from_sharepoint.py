@@ -1,6 +1,6 @@
 from source.function.main_class.my_cumulus import MyCumulus
 from cirrus.constants import ArgumentParams
-from source.function.main_function.get_file_from_sharepoint import get_file_from_sharepoint
+from source.function.main_function.get_file_from_sharepoint import get_file_from_sharepoint, test_conn_sharepoint
 
 class GetFileFromSharepoint(MyCumulus):
     def __init__(self, method_args):
@@ -36,4 +36,5 @@ class GetFileFromSharepoint(MyCumulus):
         ]
     
     def run(self):
-        get_file_from_sharepoint(self.months, self.years)
+        # get_file_from_sharepoint(self.months, self.years)
+        test_conn_sharepoint()

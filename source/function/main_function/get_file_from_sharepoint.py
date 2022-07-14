@@ -2,6 +2,37 @@ import os, sys, glob, pandas as pd
 from source.function.const.get_file_from_sharepoint import *
 from cirrus.common.helper.sharepoint_helper import download_file_from_sharepoint
 
+from office365.runtime.auth.authentication_context import AuthenticationContext
+from office365.sharepoint.client_context import ClientContext
+from office365.sharepoint.files.file import File 
+
+
+def test_conn_sharepoint():
+    
+    # app_principal = {
+    #     "client_id": "zThanakitJ@pttep.com",
+    #     "client_secret": "!ZP8NQ85uaZV4JT",
+    # }
+    client_id =  "zThanakitJ@pttep.com"
+    client_secret = "!ZP8NQ85uaZV4JT"
+    
+    url_shrpt = "https://pttep.sharepoint.com/teams/SoftwareDevelopmentwithExternalParty"
+    
+    ctx_auth = AuthenticationContext(url_shrpt)
+    
+    try:
+        if ctx_auth.acquire_token_for_app(client_id=client_id, client_secret=client_secret):
+            ctx = ClientContext(url_shrpt, ctx_auth)
+            web = ctx.web
+            ctx.load(web)
+            ctx.execute_query()
+            print('Authenticated into sharepoint app for: ',web.properties['Title'])
+        else:
+            print(ctx_auth.get_last_error())
+            sys.exit()
+    except Exception as err:
+        print(err)
+
 
 def get_file_from_sharepoint(m, y):
     
