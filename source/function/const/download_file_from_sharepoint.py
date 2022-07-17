@@ -1,5 +1,6 @@
 import os
 
+# gcp
 project_id = 'tribal-datum-340202'
 dataset_id = 'mfecbq'
 table_id = 'mfectable'

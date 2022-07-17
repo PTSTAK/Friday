@@ -1,5 +1,4 @@
 import glob, os, sys, asyncio, pandas as pd, numpy as np
-from pickle import TRUE
 from source.function.const.download_file_from_sharepoint import *
 from cirrus.functions import extract_excel_to_csv, local_csv_to_bq
 
