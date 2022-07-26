@@ -1,5 +1,4 @@
 import pandas as pd
-from sqlalchemy import table
 from source.function.const.read_file_from_sharepoint import get_last_file
 
 
